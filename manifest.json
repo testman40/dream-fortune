@@ -1,0 +1,15 @@
+{
+  "name": "夢占い - あなたの夢が伝えるメッセージ",
+  "short_name": "夢占い",
+  "description": "夢のキーワードを手軽に調べられるオフライン対応PWA",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0c0b26",
+  "theme_color": "#15133c",
+  "icons": [
+    {"src": "./assets/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}

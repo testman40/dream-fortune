@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#15133c">
+  <meta name="description" content="夢のキーワードを端末内で手軽に調べられる、軽量な夢占いPWAです。">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./assets/icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>夢占い</title>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <div class="sky" aria-hidden="true"><span class="moon"></span><span class="cloud cloud-one"></span><span class="cloud cloud-two"></span></div>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">DREAM FORTUNE</p>
+      <h1>夢占い</h1>
+      <p class="subtitle">あなたの夢が伝えるメッセージ</p>
+    </div>
+    <div class="header-actions">
+      <button id="install-button" class="install-button" type="button" hidden>アプリを追加</button>
+      <details id="bgm-controls" class="bgm-panel">
+        <summary id="bgm-summary">♪ BGM OFF</summary>
+        <div class="bgm-panel__body">
+          <div class="bgm-panel__row">
+            <span>BGM</span>
+            <button id="bgm-toggle" type="button" aria-pressed="false">OFF</button>
+          </div>
+          <label for="bgm-volume">音量</label>
+          <div class="bgm-volume-row">
+            <input id="bgm-volume" type="range" min="0" max="50" value="30" step="1">
+            <output id="bgm-volume-output" for="bgm-volume">30%</output>
+          </div>
+          <p id="bgm-status" class="bgm-status" aria-live="polite">停止中</p>
+        </div>
+      </details>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section id="home-view" class="view is-active" aria-labelledby="home-title">
+      <h2 id="home-title" class="sr-only">ホーム</h2>
+      <form class="search-card" data-search-form>
+        <label for="home-search">夢のキーワードを検索</label>
+        <div class="search-row">
+          <input id="home-search" data-search-input type="search" placeholder="どんな夢を見ましたか？" autocomplete="off" enterkeyhint="search">
+          <button type="submit" class="primary-button" aria-label="検索する">検索</button>
+        </div>
+        <p class="search-hint">文章のまま入力できます。例：知らない学校で犬に追いかけられた</p>
+      </form>
+      <section id="home-results" class="content-section" hidden aria-labelledby="home-results-title">
+        <div class="section-heading"><h2 id="home-results-title">検索結果</h2><span id="home-result-count" class="count-badge"></span></div>
+        <div id="home-result-list" class="card-list"></div>
+      </section>
+      <section class="content-section" aria-labelledby="categories-title">
+        <div class="section-heading"><h2 id="categories-title">カテゴリから探す</h2></div>
+        <div id="category-grid" class="category-grid"></div>
+      </section>
+      <section class="content-section" aria-labelledby="recent-home-title">
+        <div class="section-heading"><h2 id="recent-home-title">最近の検索</h2><button class="text-button" type="button" data-clear-history>履歴を削除</button></div>
+        <div id="recent-home-list" class="card-list compact-list"></div>
+      </section>
+    </section>
+
+    <section id="dictionary-view" class="view" aria-labelledby="dictionary-title" hidden>
+      <div class="page-heading"><p class="eyebrow">DREAM DICTIONARY</p><h2 id="dictionary-title">夢の辞典</h2></div>
+      <form class="search-card compact-search" data-search-form>
+        <label for="dictionary-search">キーワード検索</label>
+        <div class="search-row"><input id="dictionary-search" data-search-input type="search" placeholder="キーワード・別名から検索" autocomplete="off" enterkeyhint="search"><button type="submit" class="primary-button">検索</button></div>
+      </form>
+      <div class="filter-bar" aria-label="辞典の絞り込み">
+        <label for="category-filter">カテゴリ</label>
+        <select id="category-filter"><option value="">すべて</option></select>
+        <button id="clear-dictionary-filter" class="secondary-button" type="button">条件をクリア</button>
+      </div>
+      <p id="dictionary-count" class="result-summary"></p>
+      <div id="dictionary-list" class="dictionary-list"></div>
+    </section>
+
+    <section id="history-view" class="view" aria-labelledby="history-title" hidden>
+      <div class="page-heading"><p class="eyebrow">RECENT</p><h2 id="history-title">履歴</h2></div>
+      <div class="section-heading"><p>最近開いたキーワード（最大10件）</p><button class="text-button" type="button" data-clear-history>履歴を削除</button></div>
+      <div id="history-list" class="card-list"></div>
+    </section>
+
+    <section id="favorites-view" class="view" aria-labelledby="favorites-title" hidden>
+      <div class="page-heading"><p class="eyebrow">FAVORITES</p><h2 id="favorites-title">お気に入り</h2></div>
+      <div id="favorites-list" class="card-list"></div>
+    </section>
+
+    <section id="about-view" class="view" aria-labelledby="about-title" hidden>
+      <button id="about-back" class="back-button" type="button">← 戻る</button>
+      <div class="page-heading"><p class="eyebrow">APP INFORMATION</p><h2 id="about-title" tabindex="-1">バージョン履歴</h2></div>
+      <section class="version-current" aria-label="現在のバージョン">
+        <span>現在のバージョン</span>
+        <strong id="current-version">Ver1.1</strong>
+      </section>
+      <div id="version-history-list" class="version-list"></div>
+    </section>
+
+    <section id="detail-view" class="view" aria-labelledby="detail-title" hidden>
+      <button id="detail-back" class="back-button" type="button">← 戻る</button>
+      <div id="detail-content"></div>
+    </section>
+
+    <aside class="disclaimer" aria-label="夢占いについての注意">
+      <strong>夢占いについて</strong>
+      <p>本アプリの夢占いは一般的な夢占い・象徴的解釈を参考にした娯楽コンテンツです。医学的・心理学的診断を行うものではありません。</p>
+      <button id="version-history-button" class="app-info-button" type="button">Ver1.1・バージョン履歴</button>
+    </aside>
+  </main>
+
+  <nav class="bottom-nav" aria-label="メインナビゲーション">
+    <button type="button" data-view="home" aria-current="page"><span aria-hidden="true">⌂</span><span>ホーム</span></button>
+    <button type="button" data-view="dictionary"><span aria-hidden="true">⌕</span><span>夢の辞典</span></button>
+    <button type="button" data-view="history"><span aria-hidden="true">◷</span><span>履歴</span></button>
+    <button type="button" data-view="favorites"><span aria-hidden="true">☆</span><span>お気に入り</span></button>
+  </nav>
+  <audio id="bgm-audio" src="./assets/Glass%20Stillness.mp3" loop preload="metadata"></audio>
+  <div id="live-region" class="sr-only" role="status" aria-live="polite"></div>
+  <script type="module" src="./js/app.js"></script>
+  <script type="module" src="./js/bgm.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">月と星の夢占いアイコン</title>
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#171541"/><stop offset="1" stop-color="#3c286f"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="8"/></filter></defs>
+  <rect width="512" height="512" rx="112" fill="url(#sky)"/>
+  <circle cx="270" cy="232" r="122" fill="#fff1bd" opacity=".28" filter="url(#glow)"/>
+  <path d="M337 332a139 139 0 1 1-61-249 112 112 0 1 0 61 249Z" fill="#fff1bd"/>
+  <path d="m367 116 11 30 30 11-30 11-11 30-11-30-30-11 30-11Zm-24 183 7 20 20 7-20 7-7 20-7-20-20-7 20-7ZM146 126l6 17 17 6-17 6-6 17-6-17-17-6 17-6Z" fill="#ffbdd8"/>
+</svg>
